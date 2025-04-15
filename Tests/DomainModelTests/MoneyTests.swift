@@ -81,6 +81,28 @@ class MoneyTests: XCTestCase {
     XCTAssert(total.currency == "GBP")
   }
 
+  func testSubtractUSDtoGBP() {
+    let usd = Money(amount: 10, currency: "USD")
+    let gbp = Money(amount: 5, currency: "GBP")
+    let result = usd.subtract(gbp)
+    XCTAssertEqual(result.currency, "GBP")
+    XCTAssertEqual(result.amount, 0)
+  }
+    
+  func testAddMoneyToSelf() {
+    let usd = Money(amount: 20, currency: "USD")
+    let result = usd.add(usd)
+    XCTAssertEqual(result.amount, 40)
+    XCTAssertEqual(result.currency, "USD")
+  }
+
+  func testSubtractMoneyFromSelf() {
+    let eur = Money(amount: 15, currency: "EUR")
+    let result = eur.subtract(eur)
+    XCTAssertEqual(result.amount, 0)
+    XCTAssertEqual(result.currency, "EUR")
+  }
+
     static var allTests = [
         ("testCanICreateMoney", testCanICreateMoney),
 
@@ -96,6 +118,10 @@ class MoneyTests: XCTestCase {
         
         ("testAddUSDtoUSD", testAddUSDtoUSD),
         ("testAddUSDtoGBP", testAddUSDtoGBP),
+        
+        ("testSubtractUSDtoGBP", testSubtractUSDtoGBP),
+        ("testAddMoneyToSelf", testAddMoneyToSelf),
+        ("testSubtractMoneyFromSelf", testSubtractMoneyFromSelf),
     ]
 }
 
